@@ -8,21 +8,8 @@ int tail=0;
 /*Function Prototype*/
 
 void Write(char, char *);
-int Read(int);
+void Read(char *);
 void PrintBuffer(char *);
-
-// int (*op[3])(int) =
-// {
-//     Write,
-//     Read,
-//     PrintBuffer
-// };
-
-// void Menu(int Choice, int(*op[])(int)){
-
-//     op[Choice]();
-// }
-
 
 int main(){
 
@@ -43,6 +30,12 @@ int main(){
             break;
             }
             
+            case 2:
+            {
+                Read(Buffer);
+                break;
+            }
+
             case 3:
             {
                 PrintBuffer(Buffer);
@@ -84,6 +77,12 @@ void Write(char data, char *Buffer){
     
     printf("Buffer[ %d ] is  : %c\n", head-1,Buffer[head-1] );
     
+}
+
+void Read(char *Buffer){
+
+    printf("Last data is:%c\n", Buffer[head-1]);
+
 }
 
 void PrintBuffer(char *Buffer){
