@@ -1,11 +1,11 @@
 #include <stdio.h>
-
+#define SIZE 8
 /*Global Variables and typdefs*/
 
 int head=0; 
 int tail=0;
 int flag =0;
-
+int count=0;
 
 /*Function Prototype*/
 
@@ -55,38 +55,17 @@ void Write(char *Buffer){
     
     char data;
 
-    if((head == 0 && tail == 0) && (flag ==0))
-    {        
-        printf("Please Enter your data:\n");
-        scanf(" %c", &data);
-        Buffer[head] = data;
-        head++;
-        
+    if(count == SIZE)
+    {
+        printf("Buffer is full!\n");
         return;
     }
 
-        printf("Please Enter your data:\n");
-        scanf(" %c", &data);
-        
-        if((head+1) % 8 == 0)
-        {  
-            Buffer[head] = data;
-            head = 0;
-            flag = 1;
-            return;
-        }
-
-
-        if(flag == 1)
-        {
-            printf("tail has been added \n");
-            tail++;
-        }
-
-
-        Buffer[head] = data; 
-        head++;
- 
+    printf("Please Enter your data:\n");
+    scanf(" %c", &data);
+    Buffer[head] = data;
+    head = (head + 1) % 8;
+    count++;
 
 }
 
@@ -94,7 +73,11 @@ void Write(char *Buffer){
 void Read(char *Buffer){
 
 
-    printf("Last data is:%c\n", Buffer[tail]);
+    printf("Reading:%c\n", Buffer[tail]);
+    Buffer[tail] = '\0';
+    tail = (tail + 1) % 8;
+    count--;
+    
 
     
 
@@ -103,7 +86,7 @@ void Read(char *Buffer){
 void PrintBuffer(char *Buffer){
     
 
-    for(int i = 0; i < 8; i++)
+    for(int i = 0; i < count; i++)
     {
         printf(" %c", Buffer[i]);
     }
