@@ -4,29 +4,28 @@
 
 int head=0; 
 int tail=0;
+int flag =0;
 
 /*Function Prototype*/
 
-void Write(char, char *);
+void Write(char *);
 void Read(char *);
 void PrintBuffer(char *);
 
 int main(){
 
-    char Buffer[3];
+    char Buffer[8];
     int Choice = 0;
     char data;
 
     while(Choice != 4){
-        printf("Please Enter an Option:\n1=Write\n2=Read\n3=PrintBuffer\n4=Exit\n");
+        printf("\nPlease Enter an Option:\n1=Write\n2=Read\n3=PrintBuffer\n4=Exit\n");
         scanf(" %d", &Choice);
         switch(Choice)
         {
             case 1:
             {
-            printf("Please Enter your data:\n");
-            scanf(" %c", &data);
-            Write(data, Buffer);
+            Write(Buffer);
             break;
             }
             
@@ -47,65 +46,70 @@ int main(){
     return 0;
 }
 
-void Write(char data, char *Buffer){
+
+
+
+void Write(char *Buffer){
+
     
-    int flag=0;
-    if((head +1) % 4 == 0)
-    {
-        printf("inside\n");
-        tail = head-1;
-        head = 0;
+    char data;
+
+    if(head == 0 && tail == 0)
+    {        
+        printf("Please Enter your data:\n");
+        scanf(" %c", &data);
         Buffer[head] = data;
-        flag = 1;
-             
-    }
-    if(flag == 1) 
-    {
         head++;
+
+        return;
     }
-   
-    if(flag == 0 && (head +1) % 4 != 0)
-        {
+
+        printf("Please Enter your data:\n");
+        scanf(" %c", &data);
+        
+        if((head+1) % 8 == 0)
+        {  
             Buffer[head] = data;
-            head++;
+            tail++;
+            head = 0;
+            flag = 1;
+            return;
         }
 
-    
-
+        Buffer[head] = data;
+        if(flag == 0)
+        {
+            tail = head;
+        }
+        flag = 0;
         
-    
-    
-    printf("Buffer[ %d ] is  : %c\n", head-1,Buffer[head-1] );
-    
+        head++;
+ 
+
 }
+
 
 void Read(char *Buffer){
 
-    printf("Last data is:%c\n", Buffer[head-1]);
+
+    if(tail == 0 || ((flag == 0) && (tail == 7)))
+    {
+        printf("Last data is:%c\n", Buffer[tail]);
+    }
+    else
+    {
+        printf("Last data is:%c\n", Buffer[tail-1]);
+    }
+    
 
 }
 
 void PrintBuffer(char *Buffer){
     
 
-
-
-        if(tail ==2)
-        {
-            for(int i = 0; i <= tail; i++)
-            {
-                printf("%c ", Buffer[i]);
-            }
-        }
-        else if(tail ==0)
-        {
-            for(int i = tail; i < head; i++)
-            {
-                printf("%c ", Buffer[i]);
-            }
-        }
-
-
-        
-    
+    for(int i = 0; i < 8; i++)
+    {
+        printf(" %c", Buffer[i]);
+    }
+   
 }
