@@ -4,7 +4,6 @@
 
 int head=0; 
 int tail=0;
-int flag =0;
 int count=0;
 
 /*Function Prototype*/
@@ -55,6 +54,7 @@ void Write(char *Buffer){
     
     char data;
 
+
     if(count == SIZE)
     {
         printf("Buffer is full!\n");
@@ -72,7 +72,11 @@ void Write(char *Buffer){
 
 void Read(char *Buffer){
 
-
+    if(count==0)
+    {
+        printf("Buffer is Empty !\n");
+        return;
+    }
     printf("Reading:%c\n", Buffer[tail]);
     Buffer[tail] = '\0';
     tail = (tail + 1) % 8;
@@ -86,8 +90,18 @@ void Read(char *Buffer){
 void PrintBuffer(char *Buffer){
     
 
-    for(int i = 0; i < count; i++)
+    if(count==0)
     {
+        printf("Buffer is Empty !\n");
+        return;
+    }
+
+    for(int i = 0; i < 8; i++)
+    {
+        if(Buffer[i] == '\0')
+        {
+            continue;
+        }
         printf(" %c", Buffer[i]);
     }
    
