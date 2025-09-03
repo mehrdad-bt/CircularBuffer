@@ -6,6 +6,7 @@ int head=0;
 int tail=0;
 int flag =0;
 
+
 /*Function Prototype*/
 
 void Write(char *);
@@ -54,13 +55,13 @@ void Write(char *Buffer){
     
     char data;
 
-    if(head == 0 && tail == 0)
+    if((head == 0 && tail == 0) && (flag ==0))
     {        
         printf("Please Enter your data:\n");
         scanf(" %c", &data);
         Buffer[head] = data;
         head++;
-
+        
         return;
     }
 
@@ -70,19 +71,20 @@ void Write(char *Buffer){
         if((head+1) % 8 == 0)
         {  
             Buffer[head] = data;
-            tail++;
             head = 0;
             flag = 1;
             return;
         }
 
-        Buffer[head] = data;
-        if(flag == 0)
+
+        if(flag == 1)
         {
-            tail = head;
+            printf("tail has been added \n");
+            tail++;
         }
-        flag = 0;
-        
+
+
+        Buffer[head] = data; 
         head++;
  
 
@@ -92,14 +94,8 @@ void Write(char *Buffer){
 void Read(char *Buffer){
 
 
-    if(tail == 0 || ((flag == 0) && (tail == 7)))
-    {
-        printf("Last data is:%c\n", Buffer[tail]);
-    }
-    else
-    {
-        printf("Last data is:%c\n", Buffer[tail-1]);
-    }
+    printf("Last data is:%c\n", Buffer[tail]);
+
     
 
 }
